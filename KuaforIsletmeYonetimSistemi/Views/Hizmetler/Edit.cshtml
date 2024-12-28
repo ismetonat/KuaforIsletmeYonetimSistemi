@@ -1,0 +1,143 @@
+﻿@model Hizmetler
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hizmet Düzenle</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(to right, #a8edea, #fed6e3);
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .btn-primary {
+            background: linear-gradient(to right, #4facfe, #00f2fe);
+            border: none;
+            width: 100%;
+            padding: 10px;
+            color: white;
+            border-radius: 10px;
+            font-size: 1rem;
+        }
+
+            .btn-primary:hover {
+                background: linear-gradient(to right, #00f2fe, #4facfe);
+            }
+
+        .alert {
+            margin-bottom: 20px;
+            padding: 15px;
+            border-radius: 5px;
+        }
+
+        .image-preview {
+            max-width: 100%;
+            height: auto;
+            margin-top: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .info-box {
+            background-color: #e7f3fe;
+            color: #31708f;
+            border: 1px solid #bce8f1;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Hizmet Düzenle</h1>
+
+        <!-- Bilgilendirme Kutusu -->
+        <div class="info-box">
+            <strong>Not:</strong> Lütfen fiyat ve görsel bilgilerini tekrardan düzenleyiniz.
+        </div>
+
+        <!-- Hata ve Başarı Mesajları -->
+        @if (TempData["Error"] != null)
+        {
+            <div class="alert alert-danger" id="message-box">
+                @Html.Raw(TempData["Error"])
+            </div>
+        }
+
+        @if (TempData["Message"] != null)
+        {
+            <div class="alert alert-success" id="message-box">
+                @Html.Raw(TempData["Message"])
+            </div>
+        }
+
+        <!-- Düzenleme Formu -->
+        <form method="post" enctype="multipart/form-data" action="/Hizmetler/Edit/@Model.Id">
+            @Html.AntiForgeryToken()
+
+            <div class="mb-3">
+                <label for="Ad" class="form-label">Hizmet Adı</label>
+                <input type="text" id="Ad" name="Ad" class="form-control" value="@Model.Ad" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="Fiyat" class="form-label">Fiyat</label>
+                <input type="number" step="0.01" id="Fiyat" name="Fiyat" class="form-control" value="@Model.Fiyat" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="SureDakika" class="form-label">Süre (Dakika)</label>
+                <input type="number" id="SureDakika" name="SureDakika" class="form-control" value="@Model.SureDakika" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="Aciklama" class="form-label">Açıklama</label>
+                <textarea id="Aciklama" name="Aciklama" class="form-control" rows="3">@Model.Aciklama</textarea>
+            </div>
+
+            <div class="mb-3">
+                <label for="Gorsel" class="form-label">Yeni Görsel Yükle</label>
+                <input type="file" id="Gorsel" name="Gorsel" class="form-control">
+                @if (!string.IsNullOrEmpty(Model.GorselYolu))
+                {
+                    <div class="mt-3">
+                        <p>Mevcut Görsel:</p>
+                        <img src="@Model.GorselYolu" alt="Mevcut Görsel" class="image-preview">
+                    </div>
+                }
+            </div>
+
+            <button type="submit" class="btn btn-primary">Güncelle</button>
+        </form>
+    </div>
+
+    <!-- Mesaj Kutusunu Otomatik Kapatma -->
+    <script>
+        setTimeout(() => {
+            const messageBox = document.getElementById('message-box');
+            if (messageBox) {
+                messageBox.style.display = 'none';
+            }
+        }, 5000); // 5 saniye sonra mesaj kaybolur
+    </script>
+</body>
+</html>

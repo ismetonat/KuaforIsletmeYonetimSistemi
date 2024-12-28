@@ -1,0 +1,108 @@
+﻿@model Hizmetler
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yeni Hizmet Ekle</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(to right, #fbc2eb, #a6c1ee);
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #444;
+        }
+
+        .btn-success {
+            background: linear-gradient(to right, #43cea2, #185a9d);
+            border: none;
+            width: 100%;
+            padding: 10px;
+            color: white;
+            border-radius: 10px;
+        }
+
+            .btn-success:hover {
+                background: linear-gradient(to right, #185a9d, #43cea2);
+            }
+
+        .alert {
+            margin-bottom: 20px;
+            padding: 15px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Yeni Hizmet Ekle</h1>
+
+        <!-- Hata ve başarı mesajları -->
+        @if (TempData["Error"] != null)
+        {
+            <div class="alert alert-danger">
+                @Html.Raw(TempData["Error"])
+            </div>
+        }
+
+        @if (TempData["Message"] != null)
+        {
+            <div class="alert alert-success">
+                @Html.Raw(TempData["Message"])
+            </div>
+        }
+
+        <!-- Form -->
+        <form method="post" enctype="multipart/form-data" action="/Hizmetler/Create">
+            @Html.AntiForgeryToken()
+
+            <div class="mb-3">
+                <label for="Ad" class="form-label">Hizmet Adı</label>
+                <input type="text" id="Ad" name="Ad" class="form-control" placeholder="Hizmet adı girin" value="@Model?.Ad" required>
+                @Html.ValidationMessageFor(model => model.Ad, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="mb-3">
+                <label for="Fiyat" class="form-label">Fiyat</label>
+                <input type="number" step="0.01" id="Fiyat" name="Fiyat" class="form-control" placeholder="Hizmet fiyatı girin" value="@Model?.Fiyat" required>
+                @Html.ValidationMessageFor(model => model.Fiyat, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="mb-3">
+                <label for="SureDakika" class="form-label">Süre (Dakika)</label>
+                <input type="number" id="SureDakika" name="SureDakika" class="form-control" placeholder="Hizmet süresini dakika cinsinden girin" value="@Model?.SureDakika" required>
+                @Html.ValidationMessageFor(model => model.SureDakika, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="mb-3">
+                <label for="Aciklama" class="form-label">Açıklama</label>
+                <textarea id="Aciklama" name="Aciklama" class="form-control" rows="3">@Model?.Aciklama</textarea>
+                @Html.ValidationMessageFor(model => model.Aciklama, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="mb-3">
+                <label for="Gorsel" class="form-label">Görsel</label>
+                <input type="file" id="Gorsel" name="Gorsel" class="form-control">
+                @Html.ValidationMessageFor(model => model.GorselYolu, "", new { @class = "text-danger" })
+            </div>
+
+            <button type="submit" class="btn btn-success">Kaydet</button>
+        </form>
+    </div>
+</body>
+</html>

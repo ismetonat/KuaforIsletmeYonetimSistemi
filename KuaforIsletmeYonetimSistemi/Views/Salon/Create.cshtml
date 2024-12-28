@@ -1,0 +1,150 @@
+﻿@model Salon
+
+@{
+    ViewData["Title"] = "Yeni Salon Ekle";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Genel Arka Plan */
+        body {
+            background: linear-gradient(to right, #f9d423, #ff4e50);
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .container {
+            flex: 1;
+        }
+
+        /* Kart Animasyonu */
+        @@keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card {
+            animation: fadeIn 1s ease;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-header {
+            background: linear-gradient(to right, #4facfe, #00f2fe);
+            color: white;
+            padding: 25px;
+            font-size: 1.8rem;
+            text-align: center;
+            font-weight: bold;
+            letter-spacing: 1px;
+            border-bottom: none;
+        }
+
+        .form-control {
+            border-radius: 12px;
+            padding: 12px;
+            font-size: 1rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: #00b4d8;
+            box-shadow: 0 0 10px rgba(0, 180, 216, 0.5);
+        }
+
+        .btn-success {
+            background: linear-gradient(to right, #11998e, #38ef7d);
+            border: none;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-size: 1.2rem;
+            color: white;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+
+        .btn-success:hover {
+            background: linear-gradient(to right, #38ef7d, #11998e);
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        footer {
+            margin-top: auto;
+            font-size: 0.9rem;
+            color: #fff;
+            text-align: center;
+            padding: 15px 0;
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+
+        footer a {
+            color: #00b4d8;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="card shadow-lg">
+            <div class="card-header">
+                <h3 class="text-center mb-0">Yeni Salon Ekle</h3>
+            </div>
+            <div class="card-body">
+                <form method="post" action="/Salon/Create">
+                    <div class="mb-3">
+                        <label for="Name" class="form-label">Salon Adı</label>
+                        <input type="text" id="Name" name="Name" class="form-control" placeholder="Salon adı girin" value="@Model.Name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="Address" class="form-label">Adres</label>
+                        <input type="text" id="Address" name="Address" class="form-control" placeholder="Salon adresi girin" value="@Model.Address" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="Phone" class="form-label">Telefon</label>
+                        <input type="tel" id="Phone" name="Phone" 
+                               class="form-control" 
+                               placeholder="Telefon numarası giriniz. Örn: 0XXX XXX XX XX" 
+                               pattern="^0\d{10}|0\d{3} \d{3} \d{2} \d{2}|0\d{3} \d{3} \d{4}$" 
+                               title="Telefon numarası 0XXXXXXXXXX, 0XXX XXX XX XX veya 0XXX XXX XXXX formatında olmalıdır." 
+                               value="@Model.Phone"
+                               required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="Description" class="form-label">Açıklama</label>
+                        <textarea id="Description" name="Description" class="form-control" rows="3" placeholder="Salon açıklaması girin" required>@Model.Description</textarea>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-success">Kaydet</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+   
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,103 @@
+﻿@model Salon
+
+@{
+    ViewData["Title"] = "Salon Düzenle";
+}
+
+<div class="d-flex justify-content-center align-items-center vh-100">
+    <div class="container" style="max-width: 600px;">
+        <div class="card shadow">
+            <div class="card-header bg-warning text-dark">
+                <h3 class="text-center mb-0">Salon Bilgilerini Düzenle</h3>
+            </div>
+            <div class="card-body">
+                @if (!ViewData.ModelState.IsValid)
+                {
+                    <div class="alert alert-danger">
+                        @Html.ValidationSummary()
+                    </div>
+                }
+                <form method="post" action="/Salon/Edit">
+                    <!-- Salon ID Gizli Alan -->
+                    <input type="hidden" name="Id" value="@Model.Id">
+
+                    <!-- Salon Adı -->
+                    <div class="form-group mb-3">
+                        <label for="Name" class="form-label">Salon Adı</label>
+                        <input type="text" id="Name" name="Name" class="form-control" value="@Model.Name" required>
+                    </div>
+
+                    <!-- Adres -->
+                    <div class="form-group mb-3">
+                        <label for="Address" class="form-label">Adres</label>
+                        <input type="text" id="Address" name="Address" class="form-control" value="@Model.Address" required>
+                    </div>
+
+                    <!-- Telefon -->
+                    <div class="form-group mb-3">
+                        <label for="Phone" class="form-label">Telefon</label>
+                        <input type="text" id="Phone" name="Phone" class="form-control" value="@Model.Phone" placeholder="(555) 555-5555" required>
+                    </div>
+
+                    <!-- Açıklama -->
+                    <div class="form-group mb-3">
+                        <label for="Description" class="form-label">Açıklama</label>
+                        <textarea id="Description" name="Description" class="form-control" required>@Model.Description</textarea>
+                    </div>
+
+                    <!-- Kaydet Butonu -->
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary">Kaydet</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    body {
+        background: linear-gradient(to right, #f8ffae, #43c6ac);
+        font-family: 'Arial', sans-serif;
+    }
+
+    .card-header {
+        border-radius: 10px 10px 0 0;
+        padding: 15px;
+        font-size: 1.5rem;
+        text-align: center;
+    }
+
+    .form-group label {
+        font-weight: bold;
+        color: #333;
+    }
+
+    input, textarea {
+        border-radius: 10px;
+        border: 1px solid #ccc;
+        padding: 10px;
+        font-size: 1rem;
+    }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #ffc107;
+            box-shadow: 0px 0px 5px rgba(255, 193, 7, 0.5);
+        }
+
+    button {
+        background: #ffc107;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 20px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background 0.3s ease;
+    }
+
+        button:hover {
+            background: #e0a800;
+        }
+</style>

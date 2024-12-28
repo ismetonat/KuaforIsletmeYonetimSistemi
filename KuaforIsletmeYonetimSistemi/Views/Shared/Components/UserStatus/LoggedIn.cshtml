@@ -1,0 +1,47 @@
+﻿<li class="nav-item">
+    <span class="nav-link custom-yellow" style="margin-left: 20px;">
+        @Model <!-- Mail adresi veya kullanıcı adı korunur -->
+    </span>
+</li>
+
+@{
+    var email = Model as string;
+    TempData["Email"] = email;
+}
+            <li class="nav-item">
+              <a class="nav-link" href="#gallery">Galeri</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" href="#about">Hakkımızda</a>
+            </li>
+           
+            <li class="nav-item">
+             <a class="nav-link" href="#contact">İletişim</a>
+            </li>
+@if (email == "y225052054@sakarya.edu.tr")
+{
+    <li class="nav-item">
+        <a class="nav-link text-light" asp-controller="Hizmetler" asp-action="Index">Hizmetler</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-light" asp-controller="Appointment" asp-action="Index">Randevular</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-light" asp-controller="Calisanlar" asp-action="Index">Çalışanlar</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-light" asp-controller="Salon" asp-action="Index">Salonlar</a>
+    </li>
+}
+
+else
+{
+    <li class="nav-item">
+        <a class="nav-link text-light" href="@Url.Action("Create", "Appointment")" style="text-align: left;">Randevu Al</a>
+    </li>
+}
+<li class="nav-item">
+    <form asp-controller="Account" asp-action="Logout" method="post" class="d-inline">
+        <button type="submit" class="btn btn-link nav-link text-light">Çıkış Yap</button>
+    </form>
+</li>

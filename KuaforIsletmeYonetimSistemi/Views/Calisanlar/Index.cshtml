@@ -1,0 +1,137 @@
+﻿@model IEnumerable<Calisanlar>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Çalışanlar Listesi</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #fbc2eb, #a6c1ee);
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            text-align: center;
+            color: #444;
+            margin-bottom: 20px;
+        }
+
+        .btn-add {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: #fff;
+            border-radius: 5px;
+            text-decoration: none;
+            margin-bottom: 20px;
+        }
+
+            .btn-add:hover {
+                background-color: #218838;
+            }
+
+        .styled-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 1rem;
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+        }
+
+            .styled-table thead tr {
+                background-color: #009879;
+                color: #ffffff;
+                text-align: left;
+                font-weight: bold;
+            }
+
+            .styled-table th, .styled-table td {
+                padding: 12px 15px;
+            }
+
+            .styled-table tbody tr {
+                border-bottom: 1px solid #dddddd;
+            }
+
+                .styled-table tbody tr:nth-of-type(even) {
+                    background-color: #f3f3f3;
+                }
+
+                .styled-table tbody tr:hover {
+                    background-color: #f1f1f1;
+                }
+
+        .btn-edit, .btn-delete {
+            padding: 5px 10px;
+            text-decoration: none;
+            border-radius: 3px;
+            color: #fff;
+        }
+
+        .btn-edit {
+            background-color: #007bff;
+        }
+
+            .btn-edit:hover {
+                background-color: #0056b3;
+            }
+
+        .btn-delete {
+            background-color: #dc3545;
+        }
+
+            .btn-delete:hover {
+                background-color: #c82333;
+            }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Çalışanlar Listesi</h1>
+        </header>
+        <a href="/Calisanlar/Create" class="btn-add">+ Yeni Çalışan Ekle</a>
+        <table class="styled-table">
+            <thead>
+                <tr>
+                    <th>Ad</th>
+                    <th>Soyad</th>
+                    <th>Telefon</th>
+                    <th>Unvan</th>
+                    <th>İşlemler</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var calisan in Model)
+                {
+                    <tr>
+                        <td>@calisan.Ad</td>
+                        <td>@calisan.Soyad</td>
+                        <td>@calisan.Telefon</td>
+                        <td>@calisan.Unvan</td>
+                        <td>
+                            <a href="/Calisanlar/Edit/@calisan.Id" class="btn-edit">Düzenle</a>
+                            <a href="/Calisanlar/Delete/@calisan.Id" class="btn-delete">Sil</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

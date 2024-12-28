@@ -1,0 +1,110 @@
+﻿@model Calisanlar
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Çalışan Ekle</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #cfd9df, #e2ebf0);
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 40px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            text-align: center;
+            color: #444;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            font-size: 1rem;
+            cursor: pointer;
+            border: none;
+        }
+
+            button:hover {
+                background-color: #0056b3;
+            }
+
+        .alert {
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #f5c6cb;
+            border-radius: 5px;
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Yeni Çalışan Ekle</h1>
+        </header>
+
+        <!-- Özel Uyarı Mesajı -->
+        @if (TempData["Error"] != null)
+        {
+            <div class="alert">
+                @TempData["Error"]
+            </div>
+        }
+
+        <!-- Form -->
+        <form method="post" action="/Calisanlar/Create">
+            @Html.AntiForgeryToken()
+
+            <div class="form-group">
+                <label for="Ad">Ad</label>
+                <input type="text" id="Ad" name="Ad" class="form-control" placeholder="Çalışanın adını girin" value="@Model?.Ad" required>
+            </div>
+
+            <div class="form-group">
+                <label for="Soyad">Soyad</label>
+                <input type="text" id="Soyad" name="Soyad" class="form-control" placeholder="Çalışanın soyadını girin" value="@Model?.Soyad" required>
+            </div>
+
+            <div class="form-group">
+                <label for="Telefon">Telefon</label>
+                <input type="text" id="Telefon" name="Telefon" class="form-control" placeholder="Çalışanın telefonunu girin" value="@Model?.Telefon" required>
+            </div>
+
+            <div class="form-group">
+                <label for="Unvan">Unvan</label>
+                <input type="text" id="Unvan" name="Unvan" class="form-control" placeholder="Çalışanın unvanını girin" value="@Model?.Unvan">
+            </div>
+
+            <button type="submit" class="btn btn-primary">Kaydet</button>
+        </form>
+    </div>
+</body>
+</html>

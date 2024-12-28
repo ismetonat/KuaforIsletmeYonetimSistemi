@@ -1,0 +1,177 @@
+﻿@model IEnumerable<Appointment>
+
+@{
+    ViewData["Title"] = "Randevu Listesi";
+    var email = TempData["Email"] as string; // TempData'dan email alınıyor
+    TempData.Keep("Email"); // TempData'yı sonraki isteklerde kullanılabilir tutma
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <style>
+        /* CSS stilleri */
+        body {
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            margin: 50px auto;
+            max-width: 1200px;
+            padding: 20px;
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #ff6f61;
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+        }
+
+        .search-form {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+            .search-form input,
+            .search-form button {
+                padding: 10px;
+                font-size: 1rem;
+                border-radius: 5px;
+                border: 1px solid #ccc;
+            }
+
+            .search-form button {
+                background: #4caf50;
+                color: #fff;
+                cursor: pointer;
+                transition: background 0.3s;
+            }
+
+                .search-form button:hover {
+                    background: #3e8f43;
+                }
+
+        .table {
+            width: 100%;
+            margin: 0 auto;
+            border-collapse: collapse;
+        }
+
+            .table th,
+            .table td {
+                padding: 15px;
+                text-align: center;
+                border-bottom: 1px solid #ddd;
+            }
+
+            .table th {
+                background: #ff6f61;
+                color: #fff;
+                font-weight: bold;
+            }
+
+            .table tr:hover {
+                background: #ffe3e3;
+            }
+
+        .btn {
+            border: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            color: #fff;
+            font-size: 1rem;
+            transition: background 0.3s;
+        }
+
+        .btn-danger {
+            background: #ff3d3d;
+        }
+
+            .btn-danger:hover {
+                background: #d92c2c;
+            }
+
+        .add-btn {
+            display: block;
+            width: fit-content;
+            margin: 20px auto;
+            background: #4caf50;
+            color: #fff;
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-size: 1rem;
+            text-decoration: none;
+            text-align: center;
+            font-weight: bold;
+        }
+
+            .add-btn:hover {
+                background: #3b823a;
+            }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Randevu Listesi</h2>
+
+        @if (email == "y225052054@sakarya.edu.tr")
+        {
+            <a href="/Appointment/Create" class="add-btn">+ Yeni Randevu Ekle</a>
+        }
+
+        <form method="get" action="/Appointment/Index" class="search-form">
+            <input type="text" name="searchQuery" class="form-control me-2" placeholder="Müşteri, Çalışan veya Hizmet Ara">
+            <input type="date" name="dateFilter" class="form-control me-2">
+            <button type="submit" class="btn btn-primary">Ara</button>
+        </form>
+
+        <table class="table table-hover table-bordered">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Müşteri Adı</th>
+                    <th>Hizmet Türü</th>
+                    <th>Çalışan Adı</th>
+                    <th>Tarih</th>
+                    <th>Saat</th>
+                    @if (email == "y225052054@sakarya.edu.tr")
+                    {
+                        <th>İşlemler</th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var appointment in Model)
+                {
+                    <tr>
+                        <td>@appointment.Id</td>
+                        <td>@appointment.CustomerName</td>
+                        <td>@appointment.ServiceType</td>
+                        <td>@appointment.EmployeeName</td>
+                        <td>@appointment.AppointmentDate.ToShortDateString()</td>
+                        <td>@appointment.AppointmentTime</td>
+                        @if (email == "y225052054@sakarya.edu.tr")
+                        {
+                            <td>
+                                <a href="/Appointment/Delete/@appointment.Id" class="btn btn-danger btn-sm">Sil</a>
+                            </td>
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
